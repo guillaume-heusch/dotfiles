@@ -52,7 +52,7 @@ Set-PSReadLineKeyHandler -Key 'Alt+RightArrow' -Function AcceptNextSuggestionWor
 
 Import-Module posh-git
 
-oh-my-posh init pwsh --config "$HOME\.config\oh-my-posh\themes\custom.yaml" | Invoke-Expression
+oh-my-posh init pwsh --config "$HOME\Documents\dotfiles\config\oh-my-posh-config.yaml" | Invoke-Expression
 
 # function to recursively list file with a specific extension and count the # of occurences
 # i.e. equivalent to ls -R | grep *.png | wc
