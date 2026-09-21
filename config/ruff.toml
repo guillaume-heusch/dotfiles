@@ -1,0 +1,81 @@
+# Ruff Configuration File
+# This file configures the Ruff linter, which is used to enforce code quality and style.
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    # Version control directories
+    ".bzr", ".git", ".hg", ".svn",
+    # Python environment and cache directories
+    ".direnv", ".eggs", ".mypy_cache", ".pytest_cache", ".pytype", ".ruff_cache", ".venv", "__pycache__",
+    # Build and distribution directories
+    "_build", "buck-out", "build", "dist",
+    # Node.js and other project-specific directories
+    "node_modules", "site-packages", "venv",
+    # Logs and temporary files
+    "logs.log", "mlruns", "mlflow_benchmark",
+    # Documentation and data directories
+    "docs", "data",
+]
+
+# Force exclude ensures these directories are always ignored.
+force-exclude = true
+
+# Extend exclude allows additional patterns to be ignored.
+extend-exclude = ["[{][{]cookiecutter.repo_name[}][}]"]
+
+# Set the maximum line length for code.
+line-length = 79
+
+# Specify the target Python version for linting.
+target-version = "py311"
+
+[lint]
+# Enable specific linting rules.
+select = [
+    "E",    # pycodestyle rules
+    "N",    # pep8-naming rules
+    "B",    # flake8-bugbear (real-world gotchas)
+    "F",    # pyflakes rules
+    "D",    # pydocstyle rules
+    "I",    # sort imports
+    "UP",   # pyupgrade (modern Python)
+    "C4",  # flake8-comprehensions (cleaner comprehensions)
+    "SIM", # simplifications
+    "NPY", # numpy-specific rules
+    "RUF", # Ruff-specific improvements
+]
+
+# Ignore specific linting rules.
+ignore = [
+    "D100",  # Missing docstring in public module
+    "D101",  # Missing docstring in public class
+    "D107",  # Missing docstring in __init__
+    "N812",  # import with single-letter capital
+    "N803",  # allow non-lowercase args (e.g., X, y in ML)
+    "N806",  # allow non-lowercase variables (same reason)
+    "N802",  # allow non-lowercase functions (same reason)
+]
+
+# Allow fix for all enabled rules when `--fix` is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[format]
+# Configure code formatting options (ruff formatter).
+quote-style = "double"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+indent-style = "space" # Default is "4" spaces.
+docstring-code-format = true
+docstring-code-line-length = 120 # Use "dynamic" to use the line-length value from "line-length".
+
+[lint.per-file-ignores]
+# Ignore specific rules for test files.
+"tests/**" = ["D103", "E501"]  # Ignore missing docstrings and long lines in tests
+
+[lint.pydocstyle]
+# Use the NumPy style guide for docstrings.
+convention = "numpy"

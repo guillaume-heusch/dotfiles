@@ -1,0 +1,58 @@
+repos:
+  # ----------------------
+  # linting and formatting
+  # ----------------------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0  # use latest
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+      - id: ruff-format
+
+  # --------------------
+  # static type checking
+  # --------------------
+  - repo: local
+    hooks:
+    - id: mypy
+      name: mypy
+      entry: uv run mypy
+      language: system
+      types: [python]
+      pass_filenames: false
+      args: [src]
+
+
+  # --------
+  # Security
+  # --------
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.3
+    hooks:
+      - id: bandit
+        pass_filenames: false
+        args: [-r, src, --exclude, ./tests]
+
+  # ---------------
+  # generic hygiene
+  # ---------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: debug-statements
+      - id: check-json
+
+  # ---------------
+  # spelling errors
+  # ---------------
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: ["--skip=*.json"]
